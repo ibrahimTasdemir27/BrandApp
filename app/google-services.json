@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "142412603052",
+    "firebase_url": "https://countryproducts-007-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "countryproducts-007",
+    "storage_bucket": "countryproducts-007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142412603052:android:31adba0f6076be9dee0909",
+        "android_client_info": {
+          "package_name": "com.example.markaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpUgZUn9JFkFcYSYy23YVMEQHD4g7z4lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142412603052:android:f5c0570c8216a79cee0909",
+        "android_client_info": {
+          "package_name": "com.mtasdemir.productsofcountries"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpUgZUn9JFkFcYSYy23YVMEQHD4g7z4lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

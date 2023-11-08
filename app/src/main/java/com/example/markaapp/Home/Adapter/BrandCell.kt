@@ -1,20 +1,27 @@
-package com.example.markaapp.Adapter
+package com.example.markaapp.Home.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.markaapp.BrandModel
+import com.example.markaapp.Home.BrandModel
 import com.example.markaapp.R
 
 
+interface BrandCellDelegate {
+    fun tappedBrandItem(brandModel: BrandModel)
+}
+
 class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.BrandCellViewHolder>() {
 
+    var delegate: BrandCellDelegate? = null
     class BrandCellViewHolder(cell: View): RecyclerView.ViewHolder(cell) {
         val brandLabel: TextView = cell.findViewById(R.id.brandLabel)
         val brandDescriptionLabel: TextView = cell.findViewById(R.id.brandDescriptionLabel)
         val countryLabel: TextView = cell.findViewById(R.id.countryLabel)
+        val setSelectedButton: Button = cell.findViewById(R.id.brand_set_selected_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandCellViewHolder {
@@ -34,6 +41,9 @@ class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.Br
         holder.brandDescriptionLabel.text = model.description
         holder.countryLabel.text = model.country
 
+        holder.setSelectedButton.setOnClickListener {
+            delegate?.tappedBrandItem(items[position])
+        }
 
     }
 
