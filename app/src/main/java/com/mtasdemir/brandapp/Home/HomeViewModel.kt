@@ -3,9 +3,12 @@ package com.mtasdemir.brandapp.Home
 import android.os.Parcelable
 import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.mtasdemir.brandapp.Base.Base.Helper.Helper
+import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.executeOnlyArray
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
+import com.mtasdemir.brandapp.Service.FDBReadService
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 
 
 interface HomeViewModelDelegate {
@@ -16,7 +19,7 @@ interface HomeViewModelDelegate {
 
 final class HomeViewModel: BaseViewModel() {
 
-    private var allList = BrandModel.sampleBrands
+    var allList = ArrayList<BrandModel>()
     private val emptyList = ArrayList<BrandModel>()
 
 
@@ -33,19 +36,31 @@ final class HomeViewModel: BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //getBrands()
+    }
+
+    override fun onResume() {
+        super.onResume()
         getBrands()
     }
 
     fun getBrands() {
         baseVMDelegate?.contentWillLoad()
         runBlocking {
-            try {
-                //allList = ArrayList(FDBReadService.getBrandList().executeOnlyArray().toList())
-                baseVMDelegate?.contentDidLoad()
-            } catch (e: BaseError) {
-                baseVMDelegate?.contentDidLoad()
-                delegate?.getBrandListFailure(e.toString())
-            }
+
+                try {
+                    allList = ArrayList(FDBReadService.getBrandList().executeOnlyArray().toList())
+                    baseVMDelegate?.contentDidLoad()
+                } catch (e: BaseError) {
+                    baseVMDelegate?.contentDidLoad()
+                    delegate?.getBrandListFailure(e.toString())
+                }
+
         }
     }
 

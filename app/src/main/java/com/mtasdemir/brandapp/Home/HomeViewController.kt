@@ -13,6 +13,7 @@ import com.applovin.mediation.ads.MaxAdView
 import com.applovin.sdk.AppLovinSdk
 import com.mtasdemir.brandapp.Alternative.FindAlternativeViewController
 import com.mtasdemir.brandapp.Base.Base.View.ADSRewardedTask
+import com.mtasdemir.brandapp.Base.Base.View.AlertAction
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAds
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdsDelegate
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
@@ -108,7 +109,8 @@ class HomeViewController :
     }
 
     private fun tappedAlternativeButton() {
-        startActivity(FindAlternativeViewController.create())
+        val intent = FindAlternativeViewController.create(viewModel.allList.toTypedArray())
+        startActivity(intent)
     }
 
     @SuppressLint("SetTextI18n")
@@ -151,7 +153,16 @@ class HomeViewController :
     }
 
     override fun getBrandListFailure(err: String) {
+        val leftAction = AlertAction("Tamam", completion = {
+            viewModel.getBrands()
+        })
 
+        val rightAction = AlertAction("Yeniden Dene!", completion = {
+            viewModel.getBrands()
+        })
+
+        showAlert(title = "Hata ⚠️", message = "Lütfen internet bağlantınızı kontrol edin ve ardından tekrar deneyin",
+            leftActions = leftAction, rightActions = rightAction)
     }
 
 

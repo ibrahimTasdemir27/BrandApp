@@ -4,6 +4,7 @@ import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.gson.Gson
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeoutOrNull
 
 
 enum class FDBBaseURL(val path: String) {
@@ -58,9 +59,12 @@ suspend inline fun <reified T : Any> FDBNetworkReadService<T>.executeOnlyArray()
         throw BaseError.networkError()
     }
 
+    val snapshot =
+        withTimeoutOrNull(4999L) { database.child(provideBaseURL().path + providePath()).get().await() }
+            ?: throw BaseError.networkError()
 
-    val snapshot = database.child(provideBaseURL().path + providePath()).get().await()
-    println("response url ${provideBaseURL().path + providePath()}")
+    //val snapshot = database.child(provideBaseURL().path + providePath()).get().await()
+
     val jsonValue = Gson().toJson(snapshot.value)
     val jsonItem = Gson().fromJson(jsonValue, T::class.java)
 

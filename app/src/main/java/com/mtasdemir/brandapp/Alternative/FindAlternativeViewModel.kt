@@ -2,7 +2,6 @@ package com.mtasdemir.brandapp.Alternative
 
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeRecyclerType
 import com.mtasdemir.brandapp.Base.Base.BaseError
-import com.mtasdemir.brandapp.Base.Base.Helper.Helper
 import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.executeOnlyArray
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
 import com.mtasdemir.brandapp.Home.BrandModel
@@ -20,7 +19,8 @@ interface FindAlternativeViewModelDelegate {
 class FindAlternativeViewModel: BaseViewModel() {
 
 
-    private var allList = BrandModel.sampleBrands
+    //var allList = BrandModel.sampleBrands
+    lateinit var allList: Array<BrandModel>
 
     private var currentCategory: String = "YİYECEK İCECEK"
         set(value) {
@@ -48,33 +48,14 @@ class FindAlternativeViewModel: BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-        getBrands()
+       // getBrands()
     }
 
-
-    private fun getBrands() {
-        baseVMDelegate?.contentWillLoad()
-        runBlocking {
-            try {
-                allList = ArrayList(FDBReadService.getBrandList().executeOnlyArray().toList())
-                delegate?.leftCountrContentReady(provideCountryProducts(leftCountry))
-                delegate?.rightCountryContentReady(provideCountryProducts(rightCountry))
-                baseVMDelegate?.contentDidLoad()
-            } catch (e: BaseError) {
-                baseVMDelegate?.contentDidLoad()
-                delegate?.getContentFailure(BaseError.customError("Markalar yüklenemedi "))
-            }
-        }
-    }
 
 
     private fun provideCountryProducts(country: String): Array<String> {
-
         return allList.filter {
-            println("SearchedResult ${it.countryName.lowercase() == country && country.lowercase() == currentCategory}")
-            println("Searched Item: ${it.countryName.lowercase()} -----  ${country.lowercase()}")
-            println("Searched Item Not Lowercased: ${it.countryName} -----  ${country}")
-            Helper.lowercase(it.countryName) == Helper.lowercase(country) && Helper.lowercase(it.sector) == Helper.lowercase(currentCategory)
+            it.countryName == country && it.sector == currentCategory
         }.map { it.productName }.toTypedArray()
     }
 

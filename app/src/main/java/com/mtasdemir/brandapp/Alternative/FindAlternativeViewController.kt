@@ -2,6 +2,7 @@ package com.mtasdemir.brandapp.Alternative
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -15,6 +16,7 @@ import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeRecyclerType
 import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewController
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
+import com.mtasdemir.brandapp.Home.BrandModel
 import com.mtasdemir.brandapp.databinding.FindAlternativeLayoutBinding
 
 class FindAlternativeViewController:
@@ -113,6 +115,17 @@ class FindAlternativeViewController:
 
     }
 
+    override fun createSuccessModifieElements() {
+        super.createSuccessModifieElements()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            viewModel.allList = intent.getParcelableArrayExtra("allBrands", BrandModel::class.java)!!
+        } else {
+            viewModel.allList = intent.getParcelableArrayExtra("allBrands") as Array<BrandModel>
+        }
+
+
+    }
+
 
 
 
@@ -204,7 +217,7 @@ class FindAlternativeViewController:
 
 
     override fun changedSector(sector: String) {
-        selectSectorTextView.text = sector
+        selectSectorTextView.text = sector.lowercase().replaceFirstChar { it.uppercase() }
     }
 
     override fun getContentFailure(failure: BaseError) {
@@ -234,8 +247,10 @@ class FindAlternativeViewController:
 
 
     companion object {
-        fun create(): Intent {
-            return Intent(BaseViewController.appContext, FindAlternativeViewController::class.java)
+        fun create(allBrands: Array<BrandModel>): Intent {
+            val intent = Intent(BaseViewController.appContext, FindAlternativeViewController::class.java)
+            intent.putExtra("allBrands", allBrands )
+            return intent
         }
     }
 
