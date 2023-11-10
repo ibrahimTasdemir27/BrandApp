@@ -36,17 +36,17 @@ final class HomeViewModel: BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-
+        getBrands()
     }
 
     override fun onStart() {
         super.onStart()
-        //getBrands()
+        getBrands()
     }
 
     override fun onResume() {
         super.onResume()
-        getBrands()
+
     }
 
     fun getBrands() {

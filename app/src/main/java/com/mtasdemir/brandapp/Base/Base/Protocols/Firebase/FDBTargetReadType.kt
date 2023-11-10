@@ -59,10 +59,9 @@ suspend inline fun <reified T : Any> FDBNetworkReadService<T>.executeOnlyArray()
         throw BaseError.networkError()
     }
 
-    val snapshot =
-        withTimeoutOrNull(4999L) { database.child(provideBaseURL().path + providePath()).get().await() }
-            ?: throw BaseError.networkError()
-
+    println("Request Start")
+    val snapshot =database.child(provideBaseURL().path + providePath()).get().await()
+    println("Request Finish $snapshot")
     //val snapshot = database.child(provideBaseURL().path + providePath()).get().await()
 
     val jsonValue = Gson().toJson(snapshot.value)

@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeBrandCell
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCell
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCellDelegate
@@ -119,8 +120,10 @@ class FindAlternativeViewController:
         super.createSuccessModifieElements()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             viewModel.allList = intent.getParcelableArrayExtra("allBrands", BrandModel::class.java)!!
+            println("Tüm marklar ${viewModel.allList.count()}")
         } else {
             viewModel.allList = intent.getParcelableArrayExtra("allBrands") as Array<BrandModel>
+            println("Tüm marklar2 ${viewModel.allList}")
         }
 
 
@@ -248,8 +251,8 @@ class FindAlternativeViewController:
 
     companion object {
         fun create(allBrands: Array<BrandModel>): Intent {
-            val intent = Intent(BaseViewController.appContext, FindAlternativeViewController::class.java)
-            intent.putExtra("allBrands", allBrands )
+            val intent = Intent(appContext, FindAlternativeViewController::class.java)
+            intent.putExtra("allBrands", allBrands)
             return intent
         }
     }

@@ -46,12 +46,12 @@ class HomeViewController :
     }
 
     private var bannerAd: MaxAdView? = null
-    lateinit var bannerContent: LinearLayout
-    lateinit var searchTextField: TextView
-    lateinit var filterButton: Button
-    lateinit var filterButtonTextView: TextView
-    lateinit var recyclerView: RecyclerView
-    lateinit var findAlternativeButton: Button
+    private lateinit var bannerContent: LinearLayout
+    private lateinit var searchTextField: TextView
+    private lateinit var filterButton: Button
+    private lateinit var filterButtonTextView: TextView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var findAlternativeButton: Button
 
 
 
@@ -110,6 +110,7 @@ class HomeViewController :
 
     private fun tappedAlternativeButton() {
         val intent = FindAlternativeViewController.create(viewModel.allList.toTypedArray())
+        println("intent başlamadan ${viewModel.allList.count()}")
         startActivity(intent)
     }
 

@@ -48,7 +48,8 @@ class FindAlternativeViewModel: BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-       // getBrands()
+        delegate?.leftCountrContentReady(provideCountryProducts(leftCountry))
+        delegate?.rightCountryContentReady(provideCountryProducts(rightCountry))
     }
 
 
