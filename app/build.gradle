@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.markaapp'
+    namespace 'com.mtasdemir.brandapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.markaapp"
+        applicationId "com.mtasdemir.brandapp"
         minSdk 28
         targetSdk 33
         versionCode 1
@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.saadahmedev.popup-dialog:popup-dialog:1.0.5'
+
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
