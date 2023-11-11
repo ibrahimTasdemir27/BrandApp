@@ -6,4 +6,26 @@
     </style>
 
     <style name="Theme.MarkaApp" parent="Base.Theme.MarkaApp" />
+
+    <style name="customfontstyle1" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/arbutusslab_regular</item>
+        <item name="android:shadowColor">@color/gray</item>
+        <item name="android:shadowDx">0.2</item>
+        <item name="android:shadowDy">0.2</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="customfontstyle2" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/arbutusslab_regular</item>
+        <item name="android:shadowColor">@color/gray</item>
+        <item name="android:shadowDx">0.2</item>
+        <item name="android:shadowDy">0.2</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

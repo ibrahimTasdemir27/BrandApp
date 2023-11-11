@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="green">#0f9934</color>
+    <color name="red">#cf1804</color>
+    <color name="gray">#FF918483</color>
+    <color name="soft_gray">#FFE5E6E7</color>
+    <color name="text_yellow">#FAC703</color>
+    <color name="text_border">#FF000000</color>
+    <color name="text_dark">#FF3C4D80</color>
+    <color name="cardbg">#816768</color>
+    <color name="buttons_color">#afffe347</color>
+    <color name="bg_color1">#5dffe347</color>
+    <color name="bg_color2">#ad81f769</color>
+    <color name="bg_color2_1">#5d81f769</color>
 </resources>

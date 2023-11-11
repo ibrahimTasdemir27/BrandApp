@@ -60,7 +60,7 @@ class FindAlternativeViewController:
 
 
     private fun bindItem() {
-        selectSectorLinearLayout = binding.selectSectorLinearLayout
+        //selectSectorLinearLayout = binding.selectSectorLinearLayout
         selectSectorTextView = binding.selectSectorTextView
         selectLeftCountryTextView = binding.selectCountryLeftTextview
         selectRightCountryTextView = binding.selectCountryRightTextview
@@ -101,17 +101,29 @@ class FindAlternativeViewController:
 
 
 
-        binding.selectSectorButton.setOnClickListener {
+//        binding.selectSectorButton.setOnClickListener {
+//            tappedSectorButton()
+//        }
+
+//        binding.selectLeftCountryButton.setOnClickListener {
+//            tappedLeftCountryButton()
+//        }
+
+//        binding.selectRightCountryButton.setOnClickListener {
+//            tappedRightCountryButton()
+//        }
+        // --- MT
+        binding.selectSectorTextView.setOnClickListener {
             tappedSectorButton()
         }
 
-        binding.selectLeftCountryButton.setOnClickListener {
-            tappedLeftCountryButton()
-        }
-
-        binding.selectRightCountryButton.setOnClickListener {
+        binding.selectCountryRightTextview.setOnClickListener {
             tappedRightCountryButton()
         }
+        binding.selectCountryLeftTextview.setOnClickListener {
+            tappedLeftCountryButton()
+        }
+        // --- MT
 
 
     }
