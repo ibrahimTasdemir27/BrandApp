@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#0f9934</color>
     <color name="red">#cf1804</color>
+    <color name="red_for_banned">#FF1900</color>
     <color name="gray">#FF918483</color>
     <color name="soft_gray">#FFE5E6E7</color>
     <color name="text_yellow">#FAC703</color>
