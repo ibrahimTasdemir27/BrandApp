@@ -16,6 +16,8 @@ interface BrandCellDelegate {
 
 class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.BrandCellViewHolder>() {
 
+    val bannedCountries = listOf("İsrail","Amerika")
+
     var delegate: BrandCellDelegate? = null
     class BrandCellViewHolder(cell: View): RecyclerView.ViewHolder(cell) {
         val brandLabel: TextView = cell.findViewById(R.id.brandLabel)
@@ -40,6 +42,14 @@ class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.Br
         holder.brandLabel.text = model.productName
         holder.brandDescriptionLabel.text = model.sector
         holder.countryLabel.text = model.countryName
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            if(bannedCountries.contains(model.countryName)) {
+                holder.countryLabel.setBackgroundResource(R.color.red)
+            }else{
+                holder.countryLabel.setBackgroundResource(R.color.white)
+            }
+        }
 
         holder.setSelectedButton.setOnClickListener {
             delegate?.tappedBrandItem(items[position])
