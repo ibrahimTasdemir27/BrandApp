@@ -81,7 +81,7 @@ class FindAlternativeViewModel: BaseViewModel() {
     fun changedElements(item: String, type: AlternativeRecyclerType) {
 
         when(type) {
-            AlternativeRecyclerType.sector -> currentCategory = item
+            //AlternativeRecyclerType.sector -> currentCategory = item
             AlternativeRecyclerType.leftCountry -> leftCountry = item
             AlternativeRecyclerType.rightCountry -> rightCountry = item
         }
