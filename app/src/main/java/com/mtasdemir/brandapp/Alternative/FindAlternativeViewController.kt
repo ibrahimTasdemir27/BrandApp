@@ -1,12 +1,17 @@
 package com.mtasdemir.brandapp.Alternative
 
+import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -14,6 +19,7 @@ import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeBrandCell
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCell
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCellDelegate
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeRecyclerType
+import com.mtasdemir.brandapp.Alternative.Adapter.CustomDropDownAdapter
 import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewController
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
@@ -43,6 +49,7 @@ class FindAlternativeViewController:
     lateinit var selectRightCountryTextView: TextView
 
     lateinit var selectSectorRecyclerView: RecyclerView
+    lateinit var selectSectorSpinner: Spinner
     lateinit var selectCountryLeftRecyclerView: RecyclerView
     lateinit var selectCountryRightRecyclerView: RecyclerView
 
@@ -53,6 +60,7 @@ class FindAlternativeViewController:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel.delegate = this
+        createSuccessModifieElements()
         bindItem()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -61,11 +69,13 @@ class FindAlternativeViewController:
 
     private fun bindItem() {
         //selectSectorLinearLayout = binding.selectSectorLinearLayout
-        selectSectorTextView = binding.selectSectorTextView
+        //selectSectorTextView = binding.selectSectorTextView
         selectLeftCountryTextView = binding.selectCountryLeftTextview
         selectRightCountryTextView = binding.selectCountryRightTextview
 
-        selectSectorRecyclerView = binding.selectSectorRecyclerview
+        //selectSectorRecyclerView = binding.selectSectorRecyclerview
+
+
         selectCountryLeftRecyclerView = binding.selectLeftCountryRecyclerview
         selectCountryRightRecyclerView = binding.selectRightCountryRecyclerview
 
@@ -76,10 +86,26 @@ class FindAlternativeViewController:
 
         val emptyArray = ArrayList<String>().toTypedArray()
 
-        val sectorAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.sector)
-        sectorAdapter.delegate = this
-        selectSectorRecyclerView.layoutManager = LinearLayoutManager(this)
-        selectSectorRecyclerView.adapter = sectorAdapter
+//        val sectorAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.sector)
+//        sectorAdapter.delegate = this
+        val list = viewModel.provideSectorList() //resources.getStringArray(R.array.emailAddressTypes)
+        selectSectorSpinner = binding.selectSectorSpinner
+        val adapter = CustomDropDownAdapter(this, list)
+        selectSectorSpinner.adapter = adapter
+        selectSectorSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                Toast.makeText(this@FindAlternativeViewController,
+                    list.get(position), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
+        //selectSectorRecyclerView.layoutManager = LinearLayoutManager(this)
+        //selectSectorRecyclerView.adapter = sectorAdapter
 
 
         val leftCountryAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.leftCountry)
@@ -113,9 +139,9 @@ class FindAlternativeViewController:
 //            tappedRightCountryButton()
 //        }
         // --- MT
-        binding.selectSectorTextView.setOnClickListener {
-            tappedSectorButton()
-        }
+//        binding.selectSectorTextView.setOnClickListener {
+//            tappedSectorButton()
+//        }
 
         binding.selectCountryRightTextview.setOnClickListener {
             tappedRightCountryButton()
@@ -148,15 +174,15 @@ class FindAlternativeViewController:
     Button Actions
      */
     @SuppressLint("NotifyDataSetChanged")
-    private fun tappedSectorButton() {
-        val adapter = provideAdapterAlternative(AlternativeRecyclerType.sector)
-        adapter.typeList = viewModel.provideSectorList()
-        adapter.notifyDataSetChanged()
+//    private fun tappedSectorButton() {
+//        val adapter = provideAdapterAlternative(AlternativeRecyclerType.sector)
+//        adapter.typeList = viewModel.provideSectorList()
+//        adapter.notifyDataSetChanged()
+//
+//
+//    }
 
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
+    //@SuppressLint("NotifyDataSetChanged")
     private fun tappedLeftCountryButton() {
         val adapter = provideAdapterAlternative(AlternativeRecyclerType.leftCountry)
 
@@ -252,7 +278,7 @@ class FindAlternativeViewController:
 
     private fun provideAdapterAlternative(recyclerType: AlternativeRecyclerType): AlternativeCell {
         return when(recyclerType) {
-            AlternativeRecyclerType.sector -> selectSectorRecyclerView.adapter as AlternativeCell
+            //AlternativeRecyclerType.sector -> selectSectorRecyclerView.adapter as AlternativeCell
             AlternativeRecyclerType.leftCountry -> selectCountryLeftRecyclerView.adapter as AlternativeCell
             AlternativeRecyclerType.rightCountry -> selectCountryRightRecyclerView.adapter as AlternativeCell
         }

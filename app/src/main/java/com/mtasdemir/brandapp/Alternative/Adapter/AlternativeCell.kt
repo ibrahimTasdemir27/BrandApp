@@ -35,8 +35,8 @@ class AlternativeCell(var typeList: Array<String>, val recylerType: AlternativeR
     override fun onBindViewHolder(holder: AlternativeCellViewHolder, position: Int) {
         holder.descriptionTextView.text = typeList[position]
         when(recylerType) {
-            AlternativeRecyclerType.sector ->
-            holder.descriptionTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+//            AlternativeRecyclerType.sector ->
+//            holder.descriptionTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
             AlternativeRecyclerType.leftCountry -> View.TEXT_ALIGNMENT_TEXT_START
             AlternativeRecyclerType.rightCountry -> View.TEXT_ALIGNMENT_TEXT_END
         }
@@ -52,7 +52,7 @@ class AlternativeCell(var typeList: Array<String>, val recylerType: AlternativeR
 }
 
 enum class AlternativeRecyclerType {
-    sector,
+    //sector,
     leftCountry,
     rightCountry
 }
