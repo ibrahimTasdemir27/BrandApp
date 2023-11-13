@@ -1,6 +1,8 @@
 package com.mtasdemir.brandapp.Home
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
@@ -53,6 +55,8 @@ class HomeViewController :
     private lateinit var filterButtonTextView: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var findAlternativeButton: Button
+    private lateinit var privacyPolicyText: TextView
+    private lateinit var termsText: TextView
 
 
 
@@ -76,6 +80,8 @@ class HomeViewController :
         filterButtonTextView = binding.filterButtonTextView
         recyclerView = binding.recyclerView
         findAlternativeButton = binding.findAlternativeButton
+        privacyPolicyText = binding.privacyPolicyText
+        termsText = binding.termsText
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         val emptyArray = ArrayList<BrandModel>()
@@ -100,6 +106,15 @@ class HomeViewController :
             tappedAlternativeButton()
         }
 
+        binding.termsText.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://doc-hosting.flycricket.io/nerenin-markasi-terms-of-use/ee3d28bd-65ae-4a30-89fd-87ef1dca186f/terms"))
+            startActivity(browserIntent)
+        }
+
+        binding.privacyPolicyText.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://doc-hosting.flycricket.io/nerenin-markasi-privacy-policy/8630a8ca-9071-459f-95fe-e4ee7ee2a4e8/privacy"))
+            startActivity(browserIntent)
+        }
     }
 
 
