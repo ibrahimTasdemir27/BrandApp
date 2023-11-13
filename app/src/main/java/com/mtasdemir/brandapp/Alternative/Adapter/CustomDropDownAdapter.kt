@@ -1,6 +1,8 @@
 package com.mtasdemir.brandapp.Alternative.Adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.mtasdemir.brandapp.R
 
-class CustomDropDownAdapter(val context: Context, var dataSource: Array<String>) : BaseAdapter() {
+class CustomDropDownAdapter(val context: Context, var dataSource: Array<String>, var selectedPosition: Int) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -25,6 +27,12 @@ class CustomDropDownAdapter(val context: Context, var dataSource: Array<String>)
             vh = view.tag as ItemHolder
         }
         vh.label.text = dataSource.get(position)
+
+        if (position == selectedPosition) {
+            vh.label.setTextColor(Color.BLUE)
+        } else {
+            vh.label.setTextColor(Color.BLACK)
+        }
 
         return view
     }
@@ -43,6 +51,7 @@ class CustomDropDownAdapter(val context: Context, var dataSource: Array<String>)
 
     private class ItemHolder(row: View?) {
         val label: TextView
+
 
         init {
             label = row?.findViewById(R.id.alternative_brand_name_textview) as TextView

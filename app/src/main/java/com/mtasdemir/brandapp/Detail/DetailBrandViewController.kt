@@ -79,7 +79,6 @@ class DetailBrandViewController: AppCompatActivity(), DetailBrandViewModelDelega
     }
 
     override fun loadImage(url: String) {
-        println("Loading images $url")
         MainScope().launch {
             withContext(Dispatchers.Main) {
                 Picasso.with(this@DetailBrandViewController).load(url).placeholder(androidx.constraintlayout.widget.R.drawable.abc_ic_clear_material).into(image)

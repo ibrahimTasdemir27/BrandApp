@@ -17,6 +17,7 @@ import com.mtasdemir.brandapp.Base.Base.View.AlertAction
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAds
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdsDelegate
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
+import com.mtasdemir.brandapp.CountryPalette.CountryPaletteViewController
 import com.mtasdemir.brandapp.Detail.DetailBrandViewController
 import com.mtasdemir.brandapp.Home.Adapter.BrandCell
 import com.mtasdemir.brandapp.Home.Adapter.BrandCellDelegate
@@ -57,8 +58,8 @@ class HomeViewController :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel.delegate = this
-        modifieElements()
         super.onCreate(savedInstanceState)
+        modifieElements()
         setContentView(binding.root)
         AppLovinSdk.getInstance(this).mediationProvider = "max"
         AppLovinSdk.getInstance(this).initializeSdk()
@@ -87,6 +88,10 @@ class HomeViewController :
             textIsChanged()
         }
 
+        binding.selectCountryPaletteTextview.setOnClickListener {
+            tappedSelectCountryPalette()
+        }
+
         binding.filterButton.setOnClickListener {
             filterButtonTapped()
         }
@@ -108,9 +113,14 @@ class HomeViewController :
         viewModel.filterTextIsChanged(searchTextField.text.toString())
     }
 
+    private fun tappedSelectCountryPalette() {
+        println("1")
+        startActivity(CountryPaletteViewController.create(viewModel.allList.toTypedArray()))
+        println("2")
+    }
+
     private fun tappedAlternativeButton() {
         val intent = FindAlternativeViewController.create(viewModel.allList.toTypedArray())
-        println("intent başlamadan ${viewModel.allList.count()}")
         startActivity(intent)
     }
 

@@ -12,7 +12,8 @@
     <color name="text_dark">#FF3C4D80</color>
     <color name="cardbg">#816768</color>
     <color name="buttons_color">#afffe347</color>
-    <color name="spinneritemcolor">#5EBFCAA8</color>
+    <color name="spinneritemcolor">#E7F0FE</color>
+    <color name="textTintColor">#0957D0</color>
     <color name="bg_color1">#5dffe347</color>
     <color name="bg_color2">#ad81f769</color>
     <color name="bg_color2_1">#5d81f769</color>

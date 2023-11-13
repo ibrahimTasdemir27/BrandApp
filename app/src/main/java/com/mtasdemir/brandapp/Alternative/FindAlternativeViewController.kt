@@ -1,24 +1,17 @@
 package com.mtasdemir.brandapp.Alternative
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeBrandCell
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCell
-import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeCellDelegate
-import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeRecyclerType
 import com.mtasdemir.brandapp.Alternative.Adapter.CustomDropDownAdapter
 import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewController
@@ -28,8 +21,7 @@ import com.mtasdemir.brandapp.databinding.FindAlternativeLayoutBinding
 
 class FindAlternativeViewController:
     BaseViewController(),
-    FindAlternativeViewModelDelegate,
-    AlternativeCellDelegate {
+    FindAlternativeViewModelDelegate {
 
 
     private val viewModel = FindAlternativeViewModel()
@@ -43,15 +35,11 @@ class FindAlternativeViewController:
     }
 
 
-    lateinit var selectSectorLinearLayout: LinearLayout
-    lateinit var selectSectorTextView: TextView
-    lateinit var selectLeftCountryTextView: TextView
-    lateinit var selectRightCountryTextView: TextView
 
-    lateinit var selectSectorRecyclerView: RecyclerView
     lateinit var selectSectorSpinner: Spinner
-    lateinit var selectCountryLeftRecyclerView: RecyclerView
-    lateinit var selectCountryRightRecyclerView: RecyclerView
+    lateinit var selectLeftCountrySpinner: Spinner
+    lateinit var selectRightCountrySpinner: Spinner
+
 
     lateinit var brandLeftCountryRecyclerView: RecyclerView
     lateinit var brandRightCountryRecyclerView: RecyclerView
@@ -68,89 +56,102 @@ class FindAlternativeViewController:
 
 
     private fun bindItem() {
-        //selectSectorLinearLayout = binding.selectSectorLinearLayout
-        //selectSectorTextView = binding.selectSectorTextView
-        selectLeftCountryTextView = binding.selectCountryLeftTextview
-        selectRightCountryTextView = binding.selectCountryRightTextview
-
-        //selectSectorRecyclerView = binding.selectSectorRecyclerview
-
-
-        selectCountryLeftRecyclerView = binding.selectLeftCountryRecyclerview
-        selectCountryRightRecyclerView = binding.selectRightCountryRecyclerview
+        selectSectorSpinner = binding.selectSectorSpinner
+        selectLeftCountrySpinner = binding.selectLeftCountrySpinner
+        selectRightCountrySpinner = binding.selectRightCountrySpinner
 
         brandLeftCountryRecyclerView = binding.brandsLeftRecyclerView
         brandRightCountryRecyclerView = binding.brandsRightRecyclerView
 
 
+        /** For Brand Recycler Adapater Binding **/
+        brandLeftCountryRecyclerView.adapter = AlternativeCell(emptyArray(), true)
+        brandLeftCountryRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val emptyArray = ArrayList<String>().toTypedArray()
+        brandRightCountryRecyclerView.adapter = AlternativeCell(emptyArray(), false)
+        brandRightCountryRecyclerView.layoutManager = LinearLayoutManager(this)
 
-//        val sectorAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.sector)
-//        sectorAdapter.delegate = this
-        val list = viewModel.provideSectorList() //resources.getStringArray(R.array.emailAddressTypes)
-        selectSectorSpinner = binding.selectSectorSpinner
-        val adapter = CustomDropDownAdapter(this, list)
-        selectSectorSpinner.adapter = adapter
+
+        /** Spinner Binding Adapter **/
+        val sectorList = viewModel.provideSectorList()
+        val countryList = viewModel.provideCountryList()
+
+        val israelIndex = countryList.indexOfFirst { it == "İsrail" }
+        val turkeyIdex = countryList.indexOfFirst { it == "Türkiye" }
+
+        val sectorAdapter = CustomDropDownAdapter(this, sectorList, 0)
+        selectSectorSpinner.adapter = sectorAdapter
+
+
+        val leftCountryAdapter = CustomDropDownAdapter(this, countryList, israelIndex)
+        selectLeftCountrySpinner.adapter = leftCountryAdapter
+
+        val rightCountryAdapter = CustomDropDownAdapter(this, countryList, turkeyIdex)
+        selectRightCountrySpinner.adapter = rightCountryAdapter
+
+
+
+
+
+        selectLeftCountrySpinner.setSelection(israelIndex)
+        selectRightCountrySpinner.setSelection(turkeyIdex)
+
         selectSectorSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,
                                         view: View, position: Int, id: Long) {
+                val sectorText = sectorList[position]
+                val adapter = selectSectorSpinner.adapter as CustomDropDownAdapter
+
+                adapter.selectedPosition = position
+                adapter.notifyDataSetChanged()
+                viewModel.currentCategory = sectorText
                 Toast.makeText(this@FindAlternativeViewController,
-                    list.get(position), Toast.LENGTH_SHORT).show()
+                    sectorText, Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // write code to perform some action
             }
         }
-        //selectSectorRecyclerView.layoutManager = LinearLayoutManager(this)
-        //selectSectorRecyclerView.adapter = sectorAdapter
 
+        selectLeftCountrySpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                val countryText = countryList[position]
+                val adapter = selectSectorSpinner.adapter as CustomDropDownAdapter
+                adapter.selectedPosition = position
+                adapter.notifyDataSetChanged()
 
-        val leftCountryAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.leftCountry)
-        leftCountryAdapter.delegate = this
-        selectCountryLeftRecyclerView.layoutManager = LinearLayoutManager(this)
-        selectCountryLeftRecyclerView.adapter = leftCountryAdapter
+                viewModel.leftCountry = countryText
+                Toast.makeText(this@FindAlternativeViewController,
+                    countryText, Toast.LENGTH_SHORT).show()
+            }
 
-
-        val rightCountryAdapter = AlternativeCell(emptyArray, AlternativeRecyclerType.rightCountry)
-        rightCountryAdapter.delegate = this
-        selectCountryRightRecyclerView.layoutManager = LinearLayoutManager(this)
-        selectCountryRightRecyclerView.adapter = rightCountryAdapter
-
-        brandLeftCountryRecyclerView.layoutManager = LinearLayoutManager(this)
-        brandLeftCountryRecyclerView.adapter = AlternativeBrandCell(emptyArray, true)
-
-        brandRightCountryRecyclerView.layoutManager = LinearLayoutManager(this)
-        brandRightCountryRecyclerView.adapter = AlternativeBrandCell(emptyArray, false)
-
-
-
-//        binding.selectSectorButton.setOnClickListener {
-//            tappedSectorButton()
-//        }
-
-//        binding.selectLeftCountryButton.setOnClickListener {
-//            tappedLeftCountryButton()
-//        }
-
-//        binding.selectRightCountryButton.setOnClickListener {
-//            tappedRightCountryButton()
-//        }
-        // --- MT
-//        binding.selectSectorTextView.setOnClickListener {
-//            tappedSectorButton()
-//        }
-
-        binding.selectCountryRightTextview.setOnClickListener {
-            tappedRightCountryButton()
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
         }
-        binding.selectCountryLeftTextview.setOnClickListener {
-            tappedLeftCountryButton()
-        }
-        // --- MT
 
+        selectRightCountrySpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                val countryText = countryList[position]
+                val adapter = selectSectorSpinner.adapter as CustomDropDownAdapter
+                adapter.selectedPosition = position
+                adapter.notifyDataSetChanged()
+
+                viewModel.rightCountry = countryText
+                Toast.makeText(this@FindAlternativeViewController,
+                    countryText, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
     }
 
@@ -163,8 +164,6 @@ class FindAlternativeViewController:
             viewModel.allList = intent.getParcelableArrayExtra("allBrands") as Array<BrandModel>
             println("Tüm marklar2 ${viewModel.allList}")
         }
-
-
     }
 
 
@@ -184,41 +183,17 @@ class FindAlternativeViewController:
 
     //@SuppressLint("NotifyDataSetChanged")
     private fun tappedLeftCountryButton() {
-        val adapter = provideAdapterAlternative(AlternativeRecyclerType.leftCountry)
 
-        adapter.typeList = viewModel.provideCountryList()
-
-        adapter.notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun tappedRightCountryButton() {
-        val adapter = provideAdapterAlternative(AlternativeRecyclerType.rightCountry)
-        adapter.typeList = viewModel.provideCountryList()
-        adapter.notifyDataSetChanged()
+
     }
 
 
 
 
-
-
-
-
-
-
-
-
-    /**
-     * Alternative Cell Delegate
-     */
-    @SuppressLint("NotifyDataSetChanged")
-    override fun selectedAlternativeItem(item: String, type: AlternativeRecyclerType) {
-        val adapter = provideAdapterAlternative(type)
-        adapter.typeList = ArrayList<String>().toTypedArray()
-        viewModel.changedElements(item, type)
-        adapter.notifyDataSetChanged()
-    }
 
 
 
@@ -240,25 +215,18 @@ class FindAlternativeViewController:
      */
     @SuppressLint("NotifyDataSetChanged")
     override fun leftCountrContentReady(list: Array<String>) {
-        val adapter = brandLeftCountryRecyclerView.adapter as AlternativeBrandCell
-        selectLeftCountryTextView.text = viewModel.leftCountry
-        adapter.brandNameList = list
+        val adapter = brandLeftCountryRecyclerView.adapter as AlternativeCell
+        adapter.typeList = list
         adapter.notifyDataSetChanged()
     }
 
 
     @SuppressLint("NotifyDataSetChanged")
     override fun rightCountryContentReady(list: Array<String>) {
-        val adapter = brandRightCountryRecyclerView.adapter as AlternativeBrandCell
-        selectRightCountryTextView.text = viewModel.rightCountry
-        adapter.brandNameList = list
+        val adapter = brandRightCountryRecyclerView.adapter as AlternativeCell
+        adapter.typeList = list
         adapter.notifyDataSetChanged()
 
-    }
-
-
-    override fun changedSector(sector: String) {
-        selectSectorTextView.text = sector.lowercase().replaceFirstChar { it.uppercase() }
     }
 
     override fun getContentFailure(failure: BaseError) {
@@ -266,23 +234,6 @@ class FindAlternativeViewController:
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    private fun provideAdapterAlternative(recyclerType: AlternativeRecyclerType): AlternativeCell {
-        return when(recyclerType) {
-            //AlternativeRecyclerType.sector -> selectSectorRecyclerView.adapter as AlternativeCell
-            AlternativeRecyclerType.leftCountry -> selectCountryLeftRecyclerView.adapter as AlternativeCell
-            AlternativeRecyclerType.rightCountry -> selectCountryRightRecyclerView.adapter as AlternativeCell
-        }
-    }
 
 
 

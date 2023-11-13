@@ -9,18 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mtasdemir.brandapp.R
 
 
-interface AlternativeCellDelegate {
-    fun selectedAlternativeItem(item: String, type: AlternativeRecyclerType)
-}
 
-class AlternativeCell(var typeList: Array<String>, val recylerType: AlternativeRecyclerType): RecyclerView.Adapter<AlternativeCell.AlternativeCellViewHolder>() {
+class AlternativeCell(var typeList: Array<String>, val isLeft: Boolean): RecyclerView.Adapter<AlternativeCell.AlternativeCellViewHolder>() {
 
 
-    var delegate: AlternativeCellDelegate? = null
 
     class AlternativeCellViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val descriptionTextView: TextView = view.findViewById(R.id.descriptionLabel)
-        val selectedButton: Button = view.findViewById(R.id.alternative_selectedButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlternativeCellViewHolder {
@@ -34,18 +29,12 @@ class AlternativeCell(var typeList: Array<String>, val recylerType: AlternativeR
 
     override fun onBindViewHolder(holder: AlternativeCellViewHolder, position: Int) {
         holder.descriptionTextView.text = typeList[position]
-        when(recylerType) {
-//            AlternativeRecyclerType.sector ->
-//            holder.descriptionTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
-            AlternativeRecyclerType.leftCountry -> View.TEXT_ALIGNMENT_TEXT_START
-            AlternativeRecyclerType.rightCountry -> View.TEXT_ALIGNMENT_TEXT_END
-        }
 
-        holder.selectedButton.setOnClickListener {
-            println("Delegate is $delegate")
-            delegate?.selectedAlternativeItem(typeList[position], recylerType)
+        if (isLeft) {
+            holder.descriptionTextView.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+        } else {
+            holder.descriptionTextView.textAlignment = View.TEXT_ALIGNMENT_VIEW_END
         }
-
     }
 
 

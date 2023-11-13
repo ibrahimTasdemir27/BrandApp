@@ -26,7 +26,7 @@ class DetailBrandViewModel: GoogleImageRequestDelegate {
 
     private fun loadRequest() {
         googleImageRequestService.delegate = this
-        googleImageRequestService.load(queryItem)
+        googleImageRequestService.load(queryItem )
     }
 
     fun provideNewUrl(): String? {
@@ -44,6 +44,8 @@ class DetailBrandViewModel: GoogleImageRequestDelegate {
 
     override fun imageUrlListReady(urlList: Array<String>) {
         lastSearchUrlList = urlList.toMutableSet()
+        delegate?.loadImage(urlList.first())
+        return
         val filteredList = urlList.filter {
             it.contains(queryItem.lowercase())
         }

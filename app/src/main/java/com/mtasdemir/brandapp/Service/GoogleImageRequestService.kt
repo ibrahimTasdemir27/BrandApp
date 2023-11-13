@@ -17,8 +17,8 @@ class GoogleImageRequestService {
     var delegate: GoogleImageRequestDelegate? = null
 
     fun load(queryItem: String) {
-        val urlString =
-            "https://www.google.com/search?q=${queryItem.lowercase()}&sca_esv=580252979&tbm=isch&sxsrf=AM9HkKlG8qSs3bNtP6K2tEJWLRaitvMXLQ:1699395262155&source=lnms&sa=X&ved=2ahUKEwjm2bvX9LKCAxWQSPEDHUP0CHkQ_AUoAXoECAEQAw&biw=1680&bih=835&dpr=2"
+        val urlString = "https://www.google.com.tr/search?q=${queryItem.lowercase()}+marka+amblem&tbm=isch&ved=2ahUKEwjljZX84cCCAxW2pP0HHQs_AyMQ2-cCegQIABAA&oq=${queryItem.lowercase()}+marka+amblem&gs_lcp=CgNpbWcQAzoFCAAQgARQywNYnwxgjg1oAHAAeACAAaYBiAHuB5IBAzAuOJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=K_pRZaXMCrbJ9u8Pi_6MmAI&bih=835&biw=1680"
+            //"https://www.google.com.tr/search?q=${queryItem.lowercase() + "marka amblem"}&sca_esv=580252979&tbm=isch&sxsrf=AM9HkKlG8qSs3bNtP6K2tEJWLRaitvMXLQ:1699395262155&source=lnms&sa=X&ved=2ahUKEwjm2bvX9LKCAxWQSPEDHUP0CHkQ_AUoAXoECAEQAw&biw=1680&bih=835&dpr=2"
 
 
         runBlocking(Dispatchers.IO) {

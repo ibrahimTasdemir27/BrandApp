@@ -37,16 +37,9 @@ final class HomeViewModel: BaseViewModel() {
     override fun onCreate() {
         super.onCreate()
         getBrands()
-    }
+        SplashManager().loadImages {
 
-    override fun onStart() {
-        super.onStart()
-        getBrands()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
+        }
     }
 
     fun getBrands() {

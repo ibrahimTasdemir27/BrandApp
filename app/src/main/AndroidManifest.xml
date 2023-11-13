@@ -33,6 +33,10 @@
             android:name=".Alternative.FindAlternativeViewController"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".CountryPalette.CountryPaletteViewController"
+            android:screenOrientation="portrait" />
+
 
         <meta-data
             android:name="preloaded_fonts"

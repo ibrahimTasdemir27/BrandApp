@@ -2,7 +2,9 @@ package com.mtasdemir.brandapp.Manager
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewController
+import java.lang.Exception
 import java.time.format.DateTimeFormatter
 
 class SPrefencesManager {
@@ -13,31 +15,6 @@ class SPrefencesManager {
 
         private val SPrefences: SharedPreferences =
             BaseViewController.appContext.getSharedPreferences("Prefences", Context.MODE_PRIVATE)
-
-
-        /*
-        var isSearchable: Boolean = false
-            get() {
-                val differ = timeRestore.atTime(LocalTime.now())
-                println("tarihler arası fark: $differ")
-                //val diff: Long = Date().time - timeRestore.epochSecond
-                val seconds = 1000 / 10
-                return seconds < 120
-
-            }
-
-        var timeRestore: LocalDate
-            get() {
-
-                val dateString = SPrefences.getString(SPKeys.timeRestoreAds.key, LocalDate.now().minus() .toString())!!
-                return LocalDateTime.parse(dateString, formatter).toLocalDate()
-            }
-            set(value) {
-                val dateString = LocalDate.now().format(formatter).toString()
-                SPrefences.edit().putString(SPKeys.timeRestoreAds.key, dateString).apply()
-            }
-
-         */
 
         var isSearchable: Boolean = false
             get() {
@@ -56,6 +33,26 @@ class SPrefencesManager {
             set(value) {
                 SPrefences.edit().putLong(SPKeys.timeRestoreAds.key, System.currentTimeMillis()).apply()
             }
+
+        var redCountrys: Array<String>
+            get() {
+                val data = SPrefences.getString(SPKeys.redCountrys.key, Gson().toJson(arrayOf("İsrail")))
+                return Gson().fromJson(data, Array<String>::class.java)
+            }
+            set(value) {
+                SPrefences.edit().putString(SPKeys.redCountrys.key, Gson().toJson(value)).apply()
+            }
+
+
+        var greenCountrys: Array<String>
+            get() {
+                val data = SPrefences.getString(SPKeys.greenCountrys.key, Gson().toJson(arrayOf("Türkiye")))
+
+                return Gson().fromJson(data, Array<String>::class.java)
+            }
+            set(value) {
+                SPrefences.edit().putString(SPKeys.greenCountrys.key, Gson().toJson(value)).apply()
+            }
     }
 
 
@@ -65,4 +62,6 @@ class SPrefencesManager {
 
 enum class SPKeys(val key: String) {
     timeRestoreAds("timeRestoreAds"),
+    redCountrys("redCountrys"),
+    greenCountrys("greenCountrys")
 }

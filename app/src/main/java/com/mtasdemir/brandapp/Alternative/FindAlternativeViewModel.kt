@@ -2,16 +2,12 @@ package com.mtasdemir.brandapp.Alternative
 
 import com.mtasdemir.brandapp.Alternative.Adapter.AlternativeRecyclerType
 import com.mtasdemir.brandapp.Base.Base.BaseError
-import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.executeOnlyArray
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
 import com.mtasdemir.brandapp.Home.BrandModel
-import com.mtasdemir.brandapp.Service.FDBReadService
-import kotlinx.coroutines.runBlocking
 
 interface FindAlternativeViewModelDelegate {
     fun leftCountrContentReady(list: Array<String>)
     fun rightCountryContentReady(list: Array<String>)
-    fun changedSector(sector: String)
     fun getContentFailure(failure: BaseError)
 }
 
@@ -22,10 +18,9 @@ class FindAlternativeViewModel: BaseViewModel() {
     //var allList = BrandModel.sampleBrands
     lateinit var allList: Array<BrandModel>
 
-    private var currentCategory: String = "YİYECEK İCECEK"
+    var currentCategory: String = "YİYECEK-İÇECEK"
         set(value) {
             field = value
-            delegate?.changedSector(value)
             changedSector(value)
         }
 
