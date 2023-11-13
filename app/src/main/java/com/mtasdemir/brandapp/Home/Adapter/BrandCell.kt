@@ -25,6 +25,14 @@ class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.Br
 
     var delegate: BrandCellDelegate? = null
 
+    val bannedMarks = listOf(
+        "Braun","Nescafe","Oreo","Netflix","Nike","Chevrolet","Cheetos","Ariel","Head & Shoulders",
+        "KFC","McDonald's","Starbucks","Coca-Cola","Pepsi","Pepsi Co","Fanta","HP","Nestle","Nesquik Nestle",
+        "Lays","Doritos","Omo","Puma","Sprite","Gilette","Maggi","Twix","Dove","Domestos","Papa Johns","Vakko",
+        "Airbnb","Arbys","Johnson's","Danone","Dominos Pizza","Snickers","Knorr","Popeyes","Loreal","Milka",
+        "Ben & Jerry","Cappy","Lipton","Schweppes","Fairy","Pantene","MacBook","Apple","Dell","Siemens",
+        "Emporio Armani","Giorgio Armani"
+    )
     private val redCountrys = SPrefencesManager.redCountrys
     private val greenCountrys = SPrefencesManager.greenCountrys
 
@@ -52,6 +60,12 @@ class BrandCell(var items: Array<BrandModel>): RecyclerView.Adapter<BrandCell.Br
         holder.brandLabel.text = model.productName
         holder.brandDescriptionLabel.text = model.sector
         holder.countryLabel.text = model.countryName
+
+        if(bannedMarks.contains(model.productName)) {
+            holder.brandLabel.setTextColor(ContextCompat.getColor(BaseViewController.appContext, R.color.red))
+        } else {
+            holder.brandLabel.setTextColor(ContextCompat.getColor(BaseViewController.appContext, R.color.black))
+        }
 
         if(redCountrys.contains(model.countryName)) {
             holder.countryLabel.setTextColor(ContextCompat.getColor(BaseViewController.appContext, R.color.red))
