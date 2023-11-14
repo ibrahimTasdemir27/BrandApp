@@ -4,12 +4,12 @@ enum class Constants {
     ;
 
     enum class ADRewarded(val key: String) {
-        //ALRewardedAdMob("ca-app-pub-3264598769747909/3957222614"),
-        ALRewardedInMobi("940c899570e389ac"),
-        ALRewardedLiftOff("c55e19ba4b66233f");
+        ALRewardedAdMob("908f6e77e397f8d2"),
+        ALRewardedInMobi("1bdf347047b6c7be"),
+        ALRewardedLiftOff("3e627d2c832b420e");
 
         companion object {
-            val allCases = arrayOf(ALRewardedInMobi, ALRewardedLiftOff)
+            private val allCases = arrayOf(ALRewardedAdMob, ALRewardedInMobi, ALRewardedLiftOff)
 
             fun randomRewardedIdentifier(): String {
                 return allCases.random().key
@@ -19,15 +19,13 @@ enum class Constants {
 
 
     enum class ADBanner(val key: String) {
-        ALBannerAdMob
-            // ("ca-app-pub-3264598769747909/5358505017"), live
-            ("ca-app-pub-3940256099942544/6300978111"), //test
-        ALBannerInMobi("25fcacf47eaa2e8d"),
-        ALBannerLiftOff("66c8c0389cd19332");
+        ALBannerAdMob("725da0ced5e141ae"),
+        ALBannerInMobi("900ac08dff9dbeb2"),
+        ALBannerLiftOff("ef029c693c19db32");
 
 
         companion object {
-            val allCases = arrayOf(ALBannerAdMob, ALBannerInMobi, ALBannerLiftOff)
+            private val allCases = arrayOf(ALBannerAdMob, ALBannerInMobi, ALBannerLiftOff)
 
             fun randomBannerIdentifier(): String {
                 return allCases.random().key
