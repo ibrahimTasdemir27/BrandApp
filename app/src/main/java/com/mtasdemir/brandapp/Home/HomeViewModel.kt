@@ -40,7 +40,7 @@ final class HomeViewModel: BaseViewModel(), GoogleImageRequestDelegate {
 
     override fun onCreate() {
         super.onCreate()
-        //getBrands()
+        getBrands()
     }
 
 
