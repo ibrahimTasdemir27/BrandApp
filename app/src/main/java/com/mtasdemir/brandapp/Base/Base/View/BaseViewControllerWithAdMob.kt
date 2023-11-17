@@ -126,15 +126,16 @@ open abstract class BaseViewControllerWithAdMob:
 
 
     private fun showRewardedADS() {
-        rewardedAd.let { ad ->
-            ad?.show(this, OnUserEarnedRewardListener {
+        println("show reward ads")
+        if (rewardedAd == null) {
+            createRewardedAd()
+        } else {
+            rewardedAd?.show(this, OnUserEarnedRewardListener {
                 if (lastRewardedRequestTask != null) {
                     adsDelegate?.rewardedSuccess(lastRewardedRequestTask!!)
+                    createRewardedAd()
                 }
             })
-        } ?: kotlin.run {
-            println("ad not ready")
-            createRewardedAd()
         }
     }
 
