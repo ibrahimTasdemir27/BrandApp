@@ -63,5 +63,9 @@ class DetailBrandViewModel: GoogleImageRequestDelegate {
         }
     }
 
+    override fun imgBrandNextModel(brandModel: BrandModel, url: String) {
+        TODO("Not yet implemented")
+    }
+
 
 }

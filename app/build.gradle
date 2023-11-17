@@ -37,7 +37,7 @@ android {
             maven { url = uri("https://artifacts.applovin.com/android") }
         }
         dependencies {
-            classpath ("com.applovin.quality:AppLovinQualityServiceGradlePlugin:")
+            classpath ("com.applovin.quality:AppLovinQualityServiceGradlePlugin:+")
         }
     }
     buildFeatures {
@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-ads:22.5.0'
+
+    implementation 'com.google.android.ump:user-messaging-platform:2.1.0'
     implementation 'com.saadahmedev.popup-dialog:popup-dialog:1.0.5'
 
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))

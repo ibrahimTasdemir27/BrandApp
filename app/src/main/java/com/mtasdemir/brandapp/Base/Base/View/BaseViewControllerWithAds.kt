@@ -23,7 +23,7 @@ interface BaseViewControllerWithAdsDelegate {
 }
 
 
-open class BaseViewControllerWithAds:
+ open abstract class BaseViewControllerWithAds:
     BaseViewController(),
     MaxRewardedAdListener,
     MaxAdViewAdListener,
@@ -117,19 +117,74 @@ open class BaseViewControllerWithAds:
 
     private fun showRewardedADS() {
         if (rewardedAd?.isReady == true) {
+            println("Rewarded Ready")
             rewardedAd?.setListener(this)
             rewardedAd?.showAd()
         } else {
             showAd = true
+            println("Rewarded Not Ready")
             createRewardedAd()
         }
     }
 
+     override fun onAdLoaded(p0: MaxAd) {
+         if (showAd) {
+
+             if (p0.format == MaxAdFormat.REWARDED) {
+                 rewardedAd?.showAd()
+             } else if (p0.format == MaxAdFormat.BANNER) {
+                 print("Banner Load Success")
+             } else {
+             //interstitialAd?.show()
+             }
+             showAd = false
+         }
+     }
+
+     override fun onAdDisplayed(p0: MaxAd) {
+
+     }
+
+     override fun onAdHidden(p0: MaxAd) {
+
+     }
+
+     override fun onAdClicked(p0: MaxAd) {
+
+     }
+
+     override fun onAdLoadFailed(p0: String, p1: MaxError) {
+
+     }
+
+     override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
+
+     }
+
+     override fun onAdExpanded(p0: MaxAd) {
+
+     }
+
+     override fun onAdCollapsed(p0: MaxAd) {
+
+     }
+
+     override fun onUserRewarded(p0: MaxAd, p1: MaxReward) {
+         if (lastRewardedRequestTask != null) {
+             adsDelegate?.rewardedSuccess(lastRewardedRequestTask!!)
+         }
+     }
+
+     override fun onRewardedVideoStarted(p0: MaxAd) {
+
+     }
+
+     override fun onRewardedVideoCompleted(p0: MaxAd) {
+
+     }
 
 
-
-
-
+     /*
 
 
     /** AD Delegate **/
@@ -194,6 +249,7 @@ open class BaseViewControllerWithAds:
     override fun onAdCollapsed(p0: MaxAd?) {
 
     }
-
+     */
 
 }
+

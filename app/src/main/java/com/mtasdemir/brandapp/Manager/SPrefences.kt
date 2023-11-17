@@ -2,6 +2,8 @@ package com.mtasdemir.brandapp.Manager
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewController
 import java.lang.Exception
@@ -11,6 +13,7 @@ class SPrefencesManager {
 
 
     companion object {
+        @RequiresApi(Build.VERSION_CODES.O)
         private val formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss")
 
         private val SPrefences: SharedPreferences =
@@ -21,8 +24,8 @@ class SPrefencesManager {
                 val differ = System.currentTimeMillis() - timeRestore
 
                 println("tarihler arası fark: $differ")
-                differ < 120 * 1000
-                return true
+
+                return differ < 120 * 1000
 
             }
 

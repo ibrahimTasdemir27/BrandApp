@@ -5,7 +5,11 @@ import com.mtasdemir.brandapp.Base.Base.BaseError
 import com.mtasdemir.brandapp.Base.Base.Helper.Helper
 import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.executeOnlyArray
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
+import com.mtasdemir.brandapp.Service.BrandNextModel
 import com.mtasdemir.brandapp.Service.FDBReadService
+import com.mtasdemir.brandapp.Service.FDBWriteService
+import com.mtasdemir.brandapp.Service.GoogleImageRequestDelegate
+import com.mtasdemir.brandapp.Service.GoogleImageRequestService
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -17,7 +21,7 @@ interface HomeViewModelDelegate {
 }
 
 
-final class HomeViewModel: BaseViewModel() {
+final class HomeViewModel: BaseViewModel(), GoogleImageRequestDelegate {
 
     var allList = ArrayList<BrandModel>()
     private val emptyList = ArrayList<BrandModel>()
@@ -36,10 +40,27 @@ final class HomeViewModel: BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-        getBrands()
-        SplashManager().loadImages {
+        //getBrands()
+    }
 
+
+    override fun imageUrlListReady(urlList: Array<String>) {
+        println("ReadyURL:: ${urlList.first()}")
+
+    }
+
+    var counter = 0
+
+    override fun imgBrandNextModel(brandModel: BrandModel, url: String) {
+   /*     val model = BrandNextModel(countryName = brandModel.countryName, productName = brandModel.productName, sector = brandModel.sector, brandImageUrl = url)
+        runBlocking {
+            FDBWriteService.setNewBrandItem(model, counter).update()
+            println("Saved URL: $url")
+            counter++
         }
+        
+    */
+
     }
 
     fun getBrands() {

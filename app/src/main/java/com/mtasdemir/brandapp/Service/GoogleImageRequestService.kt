@@ -1,5 +1,6 @@
 package com.mtasdemir.brandapp.Service
 
+import com.mtasdemir.brandapp.Home.BrandModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.jsoup.Jsoup
@@ -8,6 +9,7 @@ import org.jsoup.nodes.Document
 
 interface GoogleImageRequestDelegate {
     fun imageUrlListReady(urlList: Array<String>)
+    fun imgBrandNextModel(brandModel: BrandModel, url: String)
 }
 
 
@@ -16,7 +18,7 @@ class GoogleImageRequestService {
 
     var delegate: GoogleImageRequestDelegate? = null
 
-    fun load(queryItem: String) {
+    fun load(queryItem: String, brandModel: BrandModel? = null) {
         val urlString = "https://www.google.com.tr/search?q=${queryItem.lowercase()}+marka+amblem&tbm=isch&ved=2ahUKEwjljZX84cCCAxW2pP0HHQs_AyMQ2-cCegQIABAA&oq=${queryItem.lowercase()}+marka+amblem&gs_lcp=CgNpbWcQAzoFCAAQgARQywNYnwxgjg1oAHAAeACAAaYBiAHuB5IBAzAuOJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=K_pRZaXMCrbJ9u8Pi_6MmAI&bih=835&biw=1680"
             //"https://www.google.com.tr/search?q=${queryItem.lowercase() + "marka amblem"}&sca_esv=580252979&tbm=isch&sxsrf=AM9HkKlG8qSs3bNtP6K2tEJWLRaitvMXLQ:1699395262155&source=lnms&sa=X&ved=2ahUKEwjm2bvX9LKCAxWQSPEDHUP0CHkQ_AUoAXoECAEQAw&biw=1680&bih=835&dpr=2"
 
@@ -28,7 +30,10 @@ class GoogleImageRequestService {
                     .userAgent("Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13")
                     .get()
 
-                delegate?.imageUrlListReady(parse(doc.body().html()))
+                //delegate?.imageUrlListReady(parse(doc.body().html()))
+                val urlList = parse(doc.body().html())
+                //println("urlListCount ${urlList.count()} ------- ${urlList.first()}")
+                delegate?.imgBrandNextModel(brandModel = brandModel!!, url = urlList.first())
             } catch (e: Exception) {
                 println("herrrDefined: $e")
             }
@@ -61,10 +66,10 @@ class GoogleImageRequestService {
 
             if (httpState == true) {
                 httpFind += char
-                if (httpFind.count() == 5) {
-                    if (httpFind == "https") {
+                if (httpFind.count() == 4) {
+                    if (httpFind == "http") {
                         //print("httpsBulundu")
-                        lastHttpIndex = index - 4
+                        lastHttpIndex = index - 3
                     }
 
                     httpFind = ""

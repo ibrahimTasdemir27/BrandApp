@@ -12,10 +12,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.applovin.mediation.ads.MaxAdView
+import com.applovin.sdk.AppLovinPrivacySettings
 import com.applovin.sdk.AppLovinSdk
+import com.applovin.sdk.AppLovinSdkSettings
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.mtasdemir.brandapp.Alternative.FindAlternativeViewController
 import com.mtasdemir.brandapp.Base.Base.View.ADSRewardedTask
 import com.mtasdemir.brandapp.Base.Base.View.AlertAction
+import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdMob
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAds
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdsDelegate
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
@@ -28,7 +34,7 @@ import com.mtasdemir.brandapp.R
 import com.mtasdemir.brandapp.databinding.ActivityMainBinding
 
 class HomeViewController :
-    BaseViewControllerWithAds(),
+    BaseViewControllerWithAdMob(),
     HomeViewModelDelegate,
     BrandCellDelegate,
     BaseViewControllerWithAdsDelegate {
@@ -48,8 +54,7 @@ class HomeViewController :
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private var bannerAd: MaxAdView? = null
-    private lateinit var bannerContent: LinearLayout
+    private lateinit var bannerAdView: AdView
     private lateinit var searchTextField: TextView
     private lateinit var filterButton: Button
     private lateinit var filterButtonTextView: TextView
@@ -65,8 +70,9 @@ class HomeViewController :
         super.onCreate(savedInstanceState)
         modifieElements()
         setContentView(binding.root)
-        AppLovinSdk.getInstance(this).mediationProvider = "max"
-        AppLovinSdk.getInstance(this).initializeSdk()
+        MobileAds.initialize(this)
+        bannerAdView.loadAd(AdRequest.Builder().build())
+
         createBannerAd()
     }
 
@@ -74,7 +80,7 @@ class HomeViewController :
 
 
     private fun modifieElements() {
-        bannerContent = binding.homeAdsContent
+        bannerAdView = binding.adView
         searchTextField = binding.searchTextField
         filterButton = binding.filterButton
         filterButtonTextView = binding.filterButtonTextView
@@ -195,13 +201,21 @@ class HomeViewController :
     /** Ads Delegate **/
 
     override fun rewardedSuccess(task: ADSRewardedTask) {
+        println("Rewwarded Success")
         SPrefencesManager.timeRestore = System.currentTimeMillis()
     }
     override fun bannerLoaded(banner: MaxAdView) {
+        /*
         val rootView = findViewById<LinearLayout>(R.id.home_ads_content)
         rootView.children.forEach {
             rootView.removeView(it)
         }
+        println("Banner Loaded")
         rootView.addView(banner)
+
+
+
+         */
+
     }
 }
