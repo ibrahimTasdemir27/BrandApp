@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAds
+import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdMob
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
 import com.mtasdemir.brandapp.CountryPalette.Adapter.CountryPaletteCell
 import com.mtasdemir.brandapp.CountryPalette.Adapter.CountryPaletteCellDelegate
@@ -14,7 +14,7 @@ import com.mtasdemir.brandapp.Home.BrandModel
 import com.mtasdemir.brandapp.databinding.CountryPaletteLayoutBinding
 
 class CountryPaletteViewController:
-    BaseViewControllerWithAds(),
+    BaseViewControllerWithAdMob(),
     CountryPaletteViewModelDelegate,
     CountryPaletteCellDelegate {
 

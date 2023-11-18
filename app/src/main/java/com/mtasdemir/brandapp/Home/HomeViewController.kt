@@ -5,16 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.applovin.mediation.ads.MaxAdView
-import com.applovin.sdk.AppLovinPrivacySettings
-import com.applovin.sdk.AppLovinSdk
-import com.applovin.sdk.AppLovinSdkSettings
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -22,8 +16,7 @@ import com.mtasdemir.brandapp.Alternative.FindAlternativeViewController
 import com.mtasdemir.brandapp.Base.Base.View.ADSRewardedTask
 import com.mtasdemir.brandapp.Base.Base.View.AlertAction
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdMob
-import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAds
-import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdsDelegate
+import com.mtasdemir.brandapp.Base.Base.View.BaseViewControllerWithAdMobDelegate
 import com.mtasdemir.brandapp.Base.Base.View.BaseViewModel
 import com.mtasdemir.brandapp.CountryPalette.CountryPaletteViewController
 import com.mtasdemir.brandapp.Detail.DetailBrandViewController
@@ -37,7 +30,7 @@ class HomeViewController :
     BaseViewControllerWithAdMob(),
     HomeViewModelDelegate,
     BrandCellDelegate,
-    BaseViewControllerWithAdsDelegate {
+    BaseViewControllerWithAdMobDelegate {
 
 
     private val viewModel = HomeViewModel()
@@ -46,7 +39,7 @@ class HomeViewController :
         return viewModel
     }
 
-    override fun provideAdsDelegate(): BaseViewControllerWithAdsDelegate? {
+    override fun provideAdsDelegate(): BaseViewControllerWithAdMobDelegate? {
         return this
     }
 
@@ -204,7 +197,7 @@ class HomeViewController :
         println("Rewwarded Success")
         SPrefencesManager.timeRestore = System.currentTimeMillis()
     }
-    override fun bannerLoaded(banner: MaxAdView) {
+    override fun bannerLoaded(banner: AdView) {
         /*
         val rootView = findViewById<LinearLayout>(R.id.home_ads_content)
         rootView.children.forEach {

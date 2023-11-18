@@ -42,9 +42,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <meta-data android:name="applovin.sdk.key"
-            android:value="q4kWBde8BOKcsTaGo3e7ehIGb9mc7KH_Ue2HvQduUWLF_F40HbJH_WuJC67XfNmh3Bf1zly4JG1yltoKnFfx5H"/>
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3264598769747909~5926439082"/>

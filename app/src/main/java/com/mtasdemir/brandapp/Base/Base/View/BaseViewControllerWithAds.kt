@@ -1,14 +1,6 @@
 package com.mtasdemir.brandapp.Base.Base.View
 
 import android.os.Bundle
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxAdFormat
-import com.applovin.mediation.MaxAdViewAdListener
-import com.applovin.mediation.MaxError
-import com.applovin.mediation.MaxReward
-import com.applovin.mediation.MaxRewardedAdListener
-import com.applovin.mediation.ads.MaxAdView
-import com.applovin.mediation.ads.MaxRewardedAd
 import com.mtasdemir.brandapp.Base.Base.Constants.Constants
 import com.mtasdemir.brandapp.Base.Base.Protocols.ConnectivityMiddleware
 import com.mtasdemir.brandapp.Manager.SPrefencesManager
@@ -17,11 +9,11 @@ enum class ADSRewardedTask {
     searchBrand
 }
 
+/*
 interface BaseViewControllerWithAdsDelegate {
     fun rewardedSuccess(task: ADSRewardedTask)
     fun bannerLoaded(banner: MaxAdView)
 }
-
 
  open abstract class BaseViewControllerWithAds:
     BaseViewController(),
@@ -253,3 +245,5 @@ interface BaseViewControllerWithAdsDelegate {
 
 }
 
+
+ */

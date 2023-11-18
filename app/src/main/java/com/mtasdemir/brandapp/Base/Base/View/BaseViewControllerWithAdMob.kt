@@ -2,14 +2,7 @@ package com.mtasdemir.brandapp.Base.Base.View
 
 import android.media.tv.AdRequest
 import android.os.Bundle
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxAdFormat
-import com.applovin.mediation.MaxAdViewAdListener
-import com.applovin.mediation.MaxError
-import com.applovin.mediation.MaxReward
-import com.applovin.mediation.MaxRewardedAdListener
-import com.applovin.mediation.ads.MaxAdView
-import com.applovin.mediation.ads.MaxRewardedAd
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.admanager.AdManagerAdRequest
@@ -21,7 +14,7 @@ import com.mtasdemir.brandapp.Manager.SPrefencesManager
 
 interface BaseViewControllerWithAdMobDelegate {
     fun rewardedSuccess(task: ADSRewardedTask)
-    fun bannerLoaded(banner: MaxAdView)
+    fun bannerLoaded(banner: AdView)
 }
 
 
@@ -30,17 +23,17 @@ open abstract class BaseViewControllerWithAdMob:
     ConnectivityMiddleware {
 
     private var rewardedAd: RewardedAd? = null
-    private var bannerAd: MaxAdView? = null
+    private var bannerAd: AdView? = null
 
     private var showAd = false
 
     private var lastRewardedRequestTask: ADSRewardedTask? = null
 
-    open fun provideAdsDelegate(): BaseViewControllerWithAdsDelegate? {
+    open fun provideAdsDelegate(): BaseViewControllerWithAdMobDelegate? {
         return null
     }
 
-    var adsDelegate: BaseViewControllerWithAdsDelegate? = null
+    var adsDelegate: BaseViewControllerWithAdMobDelegate? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
