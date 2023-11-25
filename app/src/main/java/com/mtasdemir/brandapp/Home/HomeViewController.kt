@@ -49,10 +49,9 @@ class HomeViewController :
 
     private lateinit var bannerAdView: AdView
     private lateinit var searchTextField: TextView
-    private lateinit var filterButton: Button
-    private lateinit var filterButtonTextView: TextView
+    private lateinit var filterButton: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var findAlternativeButton: Button
+    private lateinit var findAlternativeButton: TextView
     private lateinit var privacyPolicyText: TextView
     private lateinit var termsText: TextView
 
@@ -76,7 +75,6 @@ class HomeViewController :
         bannerAdView = binding.adView
         searchTextField = binding.searchTextField
         filterButton = binding.filterButton
-        filterButtonTextView = binding.filterButtonTextView
         recyclerView = binding.recyclerView
         findAlternativeButton = binding.findAlternativeButton
         privacyPolicyText = binding.privacyPolicyText
@@ -138,16 +136,17 @@ class HomeViewController :
         startActivity(intent)
     }
 
+
     @SuppressLint("SetTextI18n")
     private fun filterButtonTapped() {
         val isFilterToBrand = !viewModel.isFilterToBrand
 
         if (isFilterToBrand) {
             searchTextField.hint = "Marka Adını Yazınız..."
-            filterButtonTextView.text = "Ülkeye göre"
+            filterButton.text = "Ülkeye göre"
         } else {
             searchTextField.hint = "Ülke Adını Yazınız..."
-            filterButtonTextView.text = "Markaya göre"
+            filterButton.text = "Markaya göre"
         }
 
         viewModel.isFilterToBrand = isFilterToBrand
@@ -159,14 +158,6 @@ class HomeViewController :
         val intent = DetailBrandViewController.create(this, brandModel.productName, brandModel)
         startActivity(intent)
     }
-
-
-
-
-
-
-
-
 
     /** HomeViewModel Delegate **/
     @SuppressLint("NotifyDataSetChanged")

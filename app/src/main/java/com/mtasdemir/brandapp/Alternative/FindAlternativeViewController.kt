@@ -106,8 +106,8 @@ class FindAlternativeViewController:
                 adapter.selectedPosition = position
                 adapter.notifyDataSetChanged()
                 viewModel.currentCategory = sectorText
-                Toast.makeText(this@FindAlternativeViewController,
-                    sectorText, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@FindAlternativeViewController,
+//                    sectorText, Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -125,8 +125,8 @@ class FindAlternativeViewController:
                 adapter.notifyDataSetChanged()
 
                 viewModel.leftCountry = countryText
-                Toast.makeText(this@FindAlternativeViewController,
-                    countryText, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@FindAlternativeViewController,
+//                    countryText, Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -144,8 +144,8 @@ class FindAlternativeViewController:
                 adapter.notifyDataSetChanged()
 
                 viewModel.rightCountry = countryText
-                Toast.makeText(this@FindAlternativeViewController,
-                    countryText, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@FindAlternativeViewController,
+//                    countryText, Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -191,25 +191,6 @@ class FindAlternativeViewController:
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * ViewModel Delegate
      */
@@ -232,11 +213,6 @@ class FindAlternativeViewController:
     override fun getContentFailure(failure: BaseError) {
         println("Hata bulundu $failure")
     }
-
-
-
-
-
 
     companion object {
         fun create(allBrands: Array<BrandModel>): Intent {

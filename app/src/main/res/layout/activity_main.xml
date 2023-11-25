@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:maxads="http://schemas.applovin.com/android/1.0"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bglast"
+    android:backgroundTintMode="src_in"
     tools:context=".Home.HomeViewController">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,61 +23,58 @@
             android:id="@+id/searchTextField"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:background="@null"
+            android:background="@drawable/mt_border"
             android:ems="10"
             android:fontFamily="@font/muli"
             android:hint="Marka Adını Yazınız..."
             android:inputType="text"
             android:maxLines="1"
-            android:paddingStart="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="10dp"
+            android:layout_margin="3dp"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/filterButtonTextView"
+            app:layout_constraintEnd_toStartOf="@+id/filterButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/searchgif"
+            app:layout_constraintBottom_toBottomOf="@+id/serchContent"
+            app:layout_constraintStart_toEndOf="@+id/searchTextField"
+            app:layout_constraintTop_toTopOf="@+id/filterButton"
+            tools:ignore="MissingConstraints" />
+
         <TextView
-            android:id="@+id/filterButtonTextView"
+            android:id="@+id/filterButton"
             android:layout_width="130dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/home_border_filter_button"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_margin="3dp"
+            android:paddingLeft="30dp"
+            android:fontFamily="@font/muli_bold"
+            android:background="@drawable/mt_border2"
+            android:gravity="center|right"
             android:text="Ülkeye göre"
             android:textAlignment="center"
-            android:textColor="#3C3C3C"
-            android:textSize="15sp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/filterButton"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@null"
-            android:backgroundTint="#00FFFFFF"
-            android:shadowColor="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/filterButtonTextView"
-            app:layout_constraintStart_toStartOf="@+id/filterButtonTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/table_background"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:foregroundGravity="top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/serchContent">
@@ -106,24 +105,14 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/muli_bold"
-            android:text="Alternatifleri Bul"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
+            android:text="Alternatifleri\nBul"
             android:id="@+id/find_alternative_button"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
+            android:gravity="center"
             android:layout_height="50dp"
-            android:background="#00FFFFFF"
-            android:backgroundTint="#00FFFFFF"
+            android:textColor="@color/black"
+            android:fontFamily="@font/muli_bold"
+            android:background="@drawable/mt_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,38 +124,56 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
-        app:layout_constraintStart_toEndOf="@+id/select_country_palette_textview"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+        app:layout_constraintStart_toEndOf="@+id/select_country_palette_textview">
 
         <TextView
-            android:id="@+id/privacy_policy_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Privacy Policy" />
-
-        <TextView
-            android:id="@+id/terms_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Terms Conditions" />
+            android:text="Bulamadığınız markayı yazın, ekleyelim"
+            android:id="@+id/add_not_found_mark"
+            android:layout_width="150dp"
+            android:gravity="center"
+            android:layout_height="50dp"
+            android:textSize="11dp"
+            android:padding="3dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/muli_bold"
+            android:background="@drawable/mt_border" />
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/terms_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Terms Conditions"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/select_country_palette_textview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/privacy_policy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Privacy Policy"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/terms_text"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/select_country_palette_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
         android:fontFamily="@font/muli_bold"
         android:text="Ülkelerini \nSeç"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_height="50dp"
+        android:background="@drawable/mt_border"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintStart_toStartOf="parent" />
 

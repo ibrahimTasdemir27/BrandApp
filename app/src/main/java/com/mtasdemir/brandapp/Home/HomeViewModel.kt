@@ -107,8 +107,6 @@ final class HomeViewModel: BaseViewModel(), GoogleImageRequestDelegate {
             Helper.lowercase(it.productName).startsWith(text)
         }.sortedBy { it.productName }
 
-
-
         return filteredList.toTypedArray()
     }
 
@@ -116,7 +114,6 @@ final class HomeViewModel: BaseViewModel(), GoogleImageRequestDelegate {
         val filteredList = allList.filter {
             Helper.lowercase(it.countryName).startsWith(text)
         }.sortedBy { it.countryName }
-
 
         return filteredList.toTypedArray()
     }

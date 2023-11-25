@@ -25,7 +25,7 @@ class SPrefencesManager {
 
                 println("tarihler arası fark: $differ")
 
-                return differ < 120 * 1000
+                return differ < 180 * 1000
 
             }
 

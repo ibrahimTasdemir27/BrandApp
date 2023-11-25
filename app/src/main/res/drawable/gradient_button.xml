@@ -6,6 +6,6 @@
         android:startColor="@color/spinneritemcolor"
         android:endColor="@color/spinneritemcolor"
         android:type="linear"/>
-    <corners android:radius="5dp"></corners>
+    <corners android:radius="10dp"></corners>
     <stroke android:color="@color/black" android:width="0.2dp"/>
 </shape>
