@@ -31,11 +31,15 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".CountryPalette.CountryPaletteViewController"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".Alternative.FindAlternativeViewController"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".CountryPalette.CountryPaletteViewController"
+            android:name=".AddMark.AddMarkViewController"
             android:screenOrientation="portrait" />
 
 

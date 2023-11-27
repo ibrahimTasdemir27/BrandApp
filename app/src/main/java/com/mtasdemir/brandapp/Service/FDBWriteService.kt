@@ -5,10 +5,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.FDBNetworkWriteService
 import com.mtasdemir.brandapp.Base.Base.Protocols.Firebase.FDBTargetWriteType
+import java.util.UUID
 
 
 sealed class FDBWriteService: FDBTargetWriteType, FDBNetworkWriteService {
     data class setNewBrandItem(val newBrandItem: BrandNextModel, val counter: Int): FDBWriteService()
+    data class markRequest(val markName: String): FDBWriteService()
 
 
 
@@ -31,10 +33,11 @@ sealed class FDBWriteService: FDBTargetWriteType, FDBNetworkWriteService {
                 val path = "PRODUCTSNEW/$counter"
                 map[path] = newBrandItem
             }
+            is  markRequest -> {
+                val path = "MARKREQUEST/${UUID.randomUUID().toString()}"
+                map[path] = markName
+            }
         }
-
-
-
 
         return  map
     }

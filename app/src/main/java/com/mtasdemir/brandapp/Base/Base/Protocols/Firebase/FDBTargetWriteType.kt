@@ -26,7 +26,6 @@ interface FDBNetworkWriteService: FDBTargetWriteType {
     suspend fun update() {
         if (!isConnectedToInternet()) {
             throw BaseError.networkError()
-            return
         }
 
 
